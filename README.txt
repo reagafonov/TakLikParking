@@ -1,3 +1,7 @@
+TakLikParking
 
-
-Maryia Paliashchuk-Khaliauskaia
+Участники:
+Роман Агафонов
+Максим Вебер
+Тимур Гиреев
+Мария Полещук-Халявская
