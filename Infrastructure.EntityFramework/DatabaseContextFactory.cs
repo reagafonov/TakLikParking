@@ -27,7 +27,7 @@ namespace Infrastructure.EntityFramework
             }
             var dbContextOptionsBuilder = new DbContextOptionsBuilder<DatabaseContext>();
             //dbContextOptionsBuilder.UseSqlServer(connectionString);
-            dbContextOptionsBuilder.UseNpgsql(connectionString, opt => opt.MigrationsAssembly("Infrastructure.EntityFramework"));
+            dbContextOptionsBuilder.UseNpgsql(connectionString, opt => opt.MigrationsAssembly(GetType().Assembly.GetName().Name));
             return new DatabaseContext(dbContextOptionsBuilder.Options);
         }
     }
