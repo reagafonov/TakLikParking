@@ -1,6 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{2BD1A60D-C68C-492B-A155-49B063EA3D18}"
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{2BD1A60D-C68C-492B-A155-49B063EA3D18}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{65C7A410-A8BE-416D-86DF-F173EA7DE1E6}"
 EndProject
@@ -8,15 +11,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{CE336D4A-8B7D-429E-85BF-951D71693CAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Entities", "Domain.Entities\Domain.Entities.csproj", "{E3DA9C2B-B8DD-42BC-B0EE-29DA1DA08DD3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Entities", "Domain.Entities\Domain.Entities.csproj", "{E3DA9C2B-B8DD-42BC-B0EE-29DA1DA08DD3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.EntityFramework", "Infrastructure.EntityFramework\Infrastructure.EntityFramework.csproj", "{065150F7-3E8C-4D90-ACA5-D840116CB9EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.EntityFramework", "Infrastructure.EntityFramework\Infrastructure.EntityFramework.csproj", "{065150F7-3E8C-4D90-ACA5-D840116CB9EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure.Repositories.Implementations", "Infrastructure.Repositories.Implementations\Infrastructure.Repositories.Implementations.csproj", "{E68385EC-BBF4-4212-AD9B-0B4AE8728ED9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Repositories.Implementations", "Infrastructure.Repositories.Implementations\Infrastructure.Repositories.Implementations.csproj", "{E68385EC-BBF4-4212-AD9B-0B4AE8728ED9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Repositories.Abstractions", "Services.Repositories.Abstractions\Services.Repositories.Abstractions.csproj", "{9CAC015A-20BB-45D9-B2C7-8BC3F80CCD4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Repositories.Abstractions", "Services.Repositories.Abstractions\Services.Repositories.Abstractions.csproj", "{9CAC015A-20BB-45D9-B2C7-8BC3F80CCD4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Abstractions", "Services.Abstractions\Services.Abstractions.csproj", "{59F70B2A-65D3-4D91-B90E-2A9216CCFA15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Abstractions", "Services.Abstractions\Services.Abstractions.csproj", "{59F70B2A-65D3-4D91-B90E-2A9216CCFA15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Contracts", "Services.Contracts\Services.Contracts.csproj", "{4B506BF6-8998-4BD7-85AA-5B9F2DD3C579}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sevices.Iplementations", "Sevices.Iplementations\Sevices.Iplementations.csproj", "{0DE58393-2BC0-42CC-8D34-DB410D44AD06}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +55,17 @@ Global
 		{59F70B2A-65D3-4D91-B90E-2A9216CCFA15}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59F70B2A-65D3-4D91-B90E-2A9216CCFA15}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59F70B2A-65D3-4D91-B90E-2A9216CCFA15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B506BF6-8998-4BD7-85AA-5B9F2DD3C579}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B506BF6-8998-4BD7-85AA-5B9F2DD3C579}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B506BF6-8998-4BD7-85AA-5B9F2DD3C579}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B506BF6-8998-4BD7-85AA-5B9F2DD3C579}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DE58393-2BC0-42CC-8D34-DB410D44AD06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DE58393-2BC0-42CC-8D34-DB410D44AD06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DE58393-2BC0-42CC-8D34-DB410D44AD06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DE58393-2BC0-42CC-8D34-DB410D44AD06}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E3DA9C2B-B8DD-42BC-B0EE-29DA1DA08DD3} = {65C7A410-A8BE-416D-86DF-F173EA7DE1E6}
@@ -55,5 +73,10 @@ Global
 		{E68385EC-BBF4-4212-AD9B-0B4AE8728ED9} = {FC7EC663-A82C-4707-83AC-604CFD862964}
 		{9CAC015A-20BB-45D9-B2C7-8BC3F80CCD4F} = {CE336D4A-8B7D-429E-85BF-951D71693CAE}
 		{59F70B2A-65D3-4D91-B90E-2A9216CCFA15} = {CE336D4A-8B7D-429E-85BF-951D71693CAE}
+		{4B506BF6-8998-4BD7-85AA-5B9F2DD3C579} = {CE336D4A-8B7D-429E-85BF-951D71693CAE}
+		{0DE58393-2BC0-42CC-8D34-DB410D44AD06} = {CE336D4A-8B7D-429E-85BF-951D71693CAE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D5BC66EA-0A12-4CA6-AB6F-54C4E2A1EA27}
 	EndGlobalSection
 EndGlobal
