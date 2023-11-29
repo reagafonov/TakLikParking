@@ -11,5 +11,8 @@ public class CarConfiguration : IEntityTypeConfiguration<Car>
         builder.HasKey(e => e.Id);
         builder.HasMany(e => e.Bookings)
             .WithOne(e => e.Car);
+        builder.HasMany(e => e.Persons)
+            .WithMany(e => e.Cars)
+            .UsingEntity<CarToPerson>();
     }
 }

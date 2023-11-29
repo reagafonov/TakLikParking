@@ -14,5 +14,8 @@ public class PersonConfiguration : IEntityTypeConfiguration<Person>
             .WithOne(e => e.Person);
         builder.HasMany(e => e.Wallets)
             .WithOne(e => e.Person);
+        builder.HasMany(e => e.Cars)
+            .WithMany(e => e.Persons)
+            .UsingEntity<CarToPerson>();
     }
 }

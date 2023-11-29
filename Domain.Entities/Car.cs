@@ -7,4 +7,5 @@ public class Car : IEntity<int>
     public string Number { get; set; }
     
     public virtual ICollection<Booking> Bookings { get; set; }
+    public virtual ICollection<Person> Persons { get; set; }
 }
