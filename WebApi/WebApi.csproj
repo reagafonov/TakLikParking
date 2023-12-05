@@ -28,13 +28,14 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Controllers\" />
       <Folder Include="Mapping\" />
-      <Folder Include="Models\" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Infrastructure.EntityFramework\Infrastructure.EntityFramework.csproj" />
+      <ProjectReference Include="..\Infrastructure.Repositories.Implementations\Infrastructure.Repositories.Implementations.csproj" />
+      <ProjectReference Include="..\Services.Implementations\Services.Implementations.csproj" />
+      <ProjectReference Include="..\Services.Repositories.Abstractions\Services.Repositories.Abstractions.csproj" />
     </ItemGroup>
 
 </Project>
