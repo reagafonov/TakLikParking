@@ -1,4 +1,8 @@
 ﻿using Infrastructure.EntityFramework;
+using Infrastructure.Repositories.Implementations;
+using Services.Abstractions;
+using Services.Repositories.Abstractions;
+using Sevices.Iplementations;
 using WebApi.Settings;
 
 namespace WebApi
@@ -20,17 +24,15 @@ namespace WebApi
         
         private static IServiceCollection InstallServices(this IServiceCollection serviceCollection)
         {
-            //serviceCollection
-                // .AddTransient<ICourseService, CourseService>()
-                // .AddTransient<ILessonService, LessonService>();
+            serviceCollection
+                 .AddTransient<IPersonService, PersonService>();
             return serviceCollection;
         }
         
         private static IServiceCollection InstallRepositories(this IServiceCollection serviceCollection)
         {
-            //serviceCollection
-                // .AddTransient<ICourseRepository, CourseRepository>()
-                // .AddTransient<ILessonRepository, LessonRepository>();
+            serviceCollection
+                 .AddTransient<IPersonRepository, PersonRepository>();
             return serviceCollection;
         }
     }
