@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Services.Abstractions;
@@ -67,5 +68,15 @@ public class BookingService : IBookingService
             throw new EntityNotFoundException(Messages.EntityNotFound);
         
         await _repository.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task<int> AddBookingAsync(AddBookingModel model, CancellationToken cancellationToken)
+    {
+        var bookingToAdd = _mapper.Map<Booking>(model);
+
+        var addedBooking = await _repository.AddAsync(bookingToAdd);
+        await _repository.SaveChangesAsync(cancellationToken);
+
+        return addedBooking.Id;
     }
 }

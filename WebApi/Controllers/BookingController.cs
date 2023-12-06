@@ -68,4 +68,20 @@ public class BookingController : ControllerBase
 
         return NoContent();
     }
+
+    /// <summary>
+    /// Создать запись о бронировании
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpPost]
+    public async Task<ActionResult<int>> PostAsync(PostBookingRequest request, CancellationToken cancellationToken)
+    {
+        var model = _mapper.Map<AddBookingModel>(request);
+        
+        var id = await _service.AddBookingAsync(model, cancellationToken);
+
+        return Ok(id);
+    }
 }

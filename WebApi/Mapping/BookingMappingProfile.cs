@@ -18,5 +18,8 @@ public class BookingMappingProfile : Profile
         CreateMap<Booking, BookingDto>();
         CreateMap<BookingDto, BookingApiDto>();
         CreateMap<GetBookingsResponseModel, GetBookingsApiResponse>();
+        
+        CreateMap<PostBookingRequest, AddBookingModel>();
+        CreateMap<AddBookingModel, Booking>();
     }
 }
