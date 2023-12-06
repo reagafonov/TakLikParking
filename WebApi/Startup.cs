@@ -1,5 +1,8 @@
+using System.Text.Json.Serialization;
+using Asp.Versioning;
 using AutoMapper;
 using Services.Implementations.Mapping;
+using WebApi.Mapping;
 
 namespace WebApi
 {
@@ -17,10 +20,31 @@ namespace WebApi
         {
             InstallAutomapper(services);
             services.AddServices(Configuration);
-            services.AddControllers();
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+                })
+                .ConfigureApiBehaviorOptions(options =>
+                {
+                    options.SuppressInferBindingSourcesForParameters = true;
+                })
+                .AddControllersAsServices();;
             
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            services.AddEndpointsApiExplorer();
+            services
+                .AddEndpointsApiExplorer()
+                .AddApiVersioning(options =>
+                {
+                    options.AssumeDefaultVersionWhenUnspecified = true;
+                    options.DefaultApiVersion = new ApiVersion(1, 0);
+                })
+                .AddApiExplorer(options =>
+                {
+                    options.GroupNameFormat = "'v'V";
+                    options.SubstituteApiVersionInUrl = true;
+                });
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
         }
@@ -68,7 +92,9 @@ namespace WebApi
         {
             var configuration = new MapperConfiguration(cfg =>
             {
-                 cfg.AddProfile<ParkingMappingProfile>();
+                cfg.AddProfile<BookingMappingProfile>();
+                // cfg.AddProfile<CourseMappingsProfile>();
+                cfg.AddProfile<ParkingMappingProfile>();
                 // cfg.AddProfile<LessonMappingsProfile>();
                 //cfg.AddProfile<Services.Implementations.Mapping.CourseMappingsProfile>();
                 // cfg.AddProfile<Services.Implementations.Mapping.LessonMappingsProfile>();

@@ -14,7 +14,7 @@ namespace WebApi
     {
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
-            var applicationSettings = configuration.Get<ApplicationSettings>();
+            var applicationSettings = configuration.Get<ApplicationSettings>()!;
             services.AddSingleton(applicationSettings);
             return services.AddSingleton((IConfigurationRoot)configuration)
                 .InstallServices()
@@ -25,6 +25,7 @@ namespace WebApi
         private static IServiceCollection InstallServices(this IServiceCollection serviceCollection)
         {
             serviceCollection
+                .AddTransient<IBookingService, BookingService>()
                 .AddTransient<IParkingService, ParkingService>();
             return serviceCollection;
         }
@@ -32,7 +33,8 @@ namespace WebApi
         private static IServiceCollection InstallRepositories(this IServiceCollection serviceCollection)
         {
             serviceCollection
-                .AddTransient<IParkingRepository, ParkingRepository>();
+                .AddTransient<IParkingRepository, ParkingRepository>()
+                .AddTransient<IBookingRepository, BookingRepository>();
             return serviceCollection;
         }
     }
