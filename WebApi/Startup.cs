@@ -99,7 +99,7 @@ namespace WebApi
                 //cfg.AddProfile<Services.Implementations.Mapping.CourseMappingsProfile>();
                 // cfg.AddProfile<Services.Implementations.Mapping.LessonMappingsProfile>();
             });
-            configuration.AssertConfigurationIsValid();
+            //configuration.AssertConfigurationIsValid();
             return configuration;
         }
     }

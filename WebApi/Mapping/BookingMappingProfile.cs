@@ -31,6 +31,5 @@ public class BookingMappingProfile : Profile
             .ForMember(d => d.EndDate, opt => opt.MapFrom(s => s.Body.EndDate))
             .ForMember(d => d.Price, opt => opt.MapFrom(s => s.Body.Price))
             ;
-        CreateMap<AddBookingModel, Booking>();
     }
 }
