@@ -1,4 +1,8 @@
 ﻿using Infrastructure.EntityFramework;
+using Infrastructure.Repositories.Implementations;
+using Services.Abstractions;
+using Services.Implementations;
+using Services.Repositories.Abstractions;
 using WebApi.Settings;
 
 namespace WebApi
@@ -10,7 +14,7 @@ namespace WebApi
     {
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
         {
-            var applicationSettings = configuration.Get<ApplicationSettings>();
+            var applicationSettings = configuration.Get<ApplicationSettings>()!;
             services.AddSingleton(applicationSettings);
             return services.AddSingleton((IConfigurationRoot)configuration)
                 .InstallServices()
@@ -20,17 +24,15 @@ namespace WebApi
         
         private static IServiceCollection InstallServices(this IServiceCollection serviceCollection)
         {
-            //serviceCollection
-                // .AddTransient<ICourseService, CourseService>()
-                // .AddTransient<ILessonService, LessonService>();
+            serviceCollection
+                .AddTransient<IBookingService, BookingService>();
             return serviceCollection;
         }
         
         private static IServiceCollection InstallRepositories(this IServiceCollection serviceCollection)
         {
-            //serviceCollection
-                // .AddTransient<ICourseRepository, CourseRepository>()
-                // .AddTransient<ILessonRepository, LessonRepository>();
+            serviceCollection
+                .AddTransient<IBookingRepository, BookingRepository>();
             return serviceCollection;
         }
     }
