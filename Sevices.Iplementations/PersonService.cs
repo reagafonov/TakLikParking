@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Domain.Entities;
 using Services.Abstractions;
 using Services.Contracts;
 using Services.Repositories.Abstractions;
@@ -18,28 +19,39 @@ public class PersonService : IPersonService
         _personRepository = courseRepository;
     }
 
-    public Task<int> Create(PersonDto PersonDto)
+    public async Task<int> Create(PersonDto personDto)
     {
-        throw new NotImplementedException();
+        var entity = _mapper.Map<PersonDto, Person>(personDto);
+        var res = await _personRepository.AddAsync(entity);
+        await _personRepository.SaveChangesAsync();
+        return res.Id;
     }
 
-    public Task Delete(int id)
+    public async Task<bool> Delete(int id)
     {
-        throw new NotImplementedException();
+        var person = await _personRepository.GetAsync(id);
+        var res = _personRepository.Delete(person);
+        await _personRepository.SaveChangesAsync();
+        return res;
     }
 
-    public Task<PersonDto> GetById(int id)
+    public async Task<PersonDto> GetById(int id)
     {
-        throw new NotImplementedException();
+        var person = await _personRepository.GetAsync(id);
+        return _mapper.Map<PersonDto>(person);
     }
 
-    public Task<ICollection<PersonDto>> GetPaged(int page, int pageSize)
+    public async Task<ICollection<PersonDto>> GetPaged(int page, int pageSize)
     {
-        throw new NotImplementedException();
+        var entities = await _personRepository.GetAllAsync(CancellationToken.None);
+        return _mapper.Map<ICollection<Person>, ICollection<PersonDto>>(entities);
     }
 
-    public Task Update(int id, PersonDto PersonDto)
+    public async Task Update(int id, PersonDto personDto)
     {
-        throw new NotImplementedException();
+        var entity = _mapper.Map<PersonDto, Person>(personDto);
+        entity.Id = id;
+        _personRepository.Update(entity);
+        await _personRepository.SaveChangesAsync();
     }
 }
