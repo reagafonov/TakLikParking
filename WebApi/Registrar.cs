@@ -2,7 +2,7 @@
 using Infrastructure.Repositories.Implementations;
 using Services.Abstractions;
 using Services.Repositories.Abstractions;
-using Sevices.Iplementations;
+using Services.Implementations;
 using WebApi.Settings;
 
 namespace WebApi
@@ -25,14 +25,14 @@ namespace WebApi
         private static IServiceCollection InstallServices(this IServiceCollection serviceCollection)
         {
             serviceCollection
-                 .AddTransient<IPersonService, PersonService>();
+                .AddTransient<IParkingService, ParkingService>();
             return serviceCollection;
         }
         
         private static IServiceCollection InstallRepositories(this IServiceCollection serviceCollection)
         {
             serviceCollection
-                 .AddTransient<IPersonRepository, PersonRepository>();
+                .AddTransient<IParkingRepository, ParkingRepository>();
             return serviceCollection;
         }
     }
