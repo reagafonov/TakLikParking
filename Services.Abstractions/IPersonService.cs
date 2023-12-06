@@ -35,5 +35,5 @@ public interface IPersonService
     /// Удалить
     /// </summary>
     /// <param name="id">идентификатор</param>
-    Task Delete(int id);
+    Task<bool> Delete(int id);
 }

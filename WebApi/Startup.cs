@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using Asp.Versioning;
 using AutoMapper;
+using Services.Implementations.Mapping;
 using WebApi.Mapping;
 
 namespace WebApi
@@ -93,8 +94,9 @@ namespace WebApi
             {
                 cfg.AddProfile<BookingMappingProfile>();
                 // cfg.AddProfile<CourseMappingsProfile>();
+                cfg.AddProfile<ParkingMappingProfile>();
                 // cfg.AddProfile<LessonMappingsProfile>();
-                // cfg.AddProfile<Services.Implementations.Mapping.CourseMappingsProfile>();
+                //cfg.AddProfile<Services.Implementations.Mapping.CourseMappingsProfile>();
                 // cfg.AddProfile<Services.Implementations.Mapping.LessonMappingsProfile>();
             });
             configuration.AssertConfigurationIsValid();
