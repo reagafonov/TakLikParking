@@ -79,4 +79,22 @@ public class BookingService : IBookingService
 
         return addedBooking.Id;
     }
+
+    public async Task UpdateBookingAsync(UpdateBookingModel model, CancellationToken cancellationToken)
+    {
+        var booking = await _repository.GetAsync(model.Id);
+        
+        if (booking is null)
+            throw new EntityNotFoundException(Messages.EntityNotFound);
+
+        booking.PersonId = model.PersonId;
+        booking.ParkingPlaceId = model.ParkingPlaceId;
+        booking.CarId = model.CarId;
+        booking.PaymentId = model.PaymentId;
+        booking.StartDate = model.StartDate;
+        booking.EndDate = model.EndDate;
+        booking.Price = model.Price;
+        
+        await _repository.SaveChangesAsync(cancellationToken);
+    }
 }

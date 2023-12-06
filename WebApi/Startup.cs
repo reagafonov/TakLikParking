@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Asp.Versioning;
 using AutoMapper;
 using WebApi.Mapping;
@@ -18,7 +19,17 @@ namespace WebApi
         {
             InstallAutomapper(services);
             services.AddServices(Configuration);
-            services.AddControllers();
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                    options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+                })
+                .ConfigureApiBehaviorOptions(options =>
+                {
+                    options.SuppressInferBindingSourcesForParameters = true;
+                })
+                .AddControllersAsServices();;
             
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services

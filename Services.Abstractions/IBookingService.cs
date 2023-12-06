@@ -9,4 +9,5 @@ public interface IBookingService
     Task<BookingDto> GetBookingIdAsync(int id, CancellationToken cancellationToken);
     Task DeleteBookingAsync(int id, CancellationToken cancellationToken);
     Task<int> AddBookingAsync(AddBookingModel model, CancellationToken cancellationToken);
+    Task UpdateBookingAsync(UpdateBookingModel model, CancellationToken cancellationToken);
 }

@@ -48,7 +48,7 @@ public class BookingController : ControllerBase
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet("{id:int}")]
-    public async Task<ActionResult<BookingApiDto>> GetByIdAsync(int id, CancellationToken cancellationToken)
+    public async Task<ActionResult<BookingApiDto>> GetByIdAsync([FromRoute]int id, CancellationToken cancellationToken)
     {
         var result = await _service.GetBookingIdAsync(id, cancellationToken);
 
@@ -62,7 +62,7 @@ public class BookingController : ControllerBase
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpDelete("{id:int}")]
-    public async Task<ActionResult<BookingApiDto>> DeleteAsync(int id, CancellationToken cancellationToken)
+    public async Task<ActionResult<BookingApiDto>> DeleteAsync([FromRoute]int id, CancellationToken cancellationToken)
     {
         await _service.DeleteBookingAsync(id, cancellationToken);
 
@@ -76,12 +76,28 @@ public class BookingController : ControllerBase
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<ActionResult<int>> PostAsync(PostBookingRequest request, CancellationToken cancellationToken)
+    public async Task<ActionResult<int>> PostAsync([FromBody]PostBookingRequest request, CancellationToken cancellationToken)
     {
         var model = _mapper.Map<AddBookingModel>(request);
         
         var id = await _service.AddBookingAsync(model, cancellationToken);
 
         return Ok(id);
+    }
+
+    /// <summary>
+    /// Обновить запись о бронировании
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpPut("{Id:int}")]
+    public async Task<ActionResult<int>> PutAsync(PutBookingRequest request, CancellationToken cancellationToken)
+    {
+        var model = _mapper.Map<UpdateBookingModel>(request);
+        
+        await _service.UpdateBookingAsync(model, cancellationToken);
+
+        return NoContent();
     }
 }

@@ -21,5 +21,16 @@ public class BookingMappingProfile : Profile
         
         CreateMap<PostBookingRequest, AddBookingModel>();
         CreateMap<AddBookingModel, Booking>();
+        
+        CreateMap<PutBookingRequest, UpdateBookingModel>()
+            .ForMember(d => d.PersonId, opt => opt.MapFrom(s => s.Body.PersonId))
+            .ForMember(d => d.ParkingPlaceId, opt => opt.MapFrom(s => s.Body.ParkingPlaceId))
+            .ForMember(d => d.CarId, opt => opt.MapFrom(s => s.Body.CarId))
+            .ForMember(d => d.PaymentId, opt => opt.MapFrom(s => s.Body.PaymentId))
+            .ForMember(d => d.StartDate, opt => opt.MapFrom(s => s.Body.StartDate))
+            .ForMember(d => d.EndDate, opt => opt.MapFrom(s => s.Body.EndDate))
+            .ForMember(d => d.Price, opt => opt.MapFrom(s => s.Body.Price))
+            ;
+        CreateMap<AddBookingModel, Booking>();
     }
 }
