@@ -1,8 +1,8 @@
 ﻿using Infrastructure.EntityFramework;
 using Infrastructure.Repositories.Implementations;
 using Services.Abstractions;
-using Services.Implementations;
 using Services.Repositories.Abstractions;
+using Services.Implementations;
 using WebApi.Settings;
 
 namespace WebApi

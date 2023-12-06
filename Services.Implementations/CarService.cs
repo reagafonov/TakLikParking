@@ -3,11 +3,6 @@ using Domain.Entities;
 using Services.Abstractions;
 using Services.Contracts;
 using Services.Repositories.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Implementations
 {

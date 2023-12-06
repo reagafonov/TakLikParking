@@ -4,7 +4,7 @@ using Services.Abstractions;
 using Services.Contracts;
 using Services.Repositories.Abstractions;
 
-namespace Sevices.Iplementations;
+namespace Services.Implementations;
 
 public class PersonService : IPersonService
 {
