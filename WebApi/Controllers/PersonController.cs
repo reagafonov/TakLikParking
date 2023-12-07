@@ -44,13 +44,13 @@ namespace WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            return Ok(_mapper.Map<PersonModel>(await _service.GetById(id)));
+            return Ok(_mapper.Map<PersonResultModel>(await _service.GetById(id)));
         }
 
         [HttpGet("list/{page}/{itemsPerPage}")]
         public async Task<IActionResult> GetList(int page, int itemsPerPage)
         {
-            return Ok(_mapper.Map<List<PersonModel>>(await _service.GetPaged(page, itemsPerPage)));
+            return Ok(_mapper.Map<List<PersonResultModel>>(await _service.GetPaged(page, itemsPerPage)));
         }
     }
 }

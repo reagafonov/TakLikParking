@@ -21,7 +21,7 @@ public class ParkingController:ControllerBase
     }
    
     [HttpGet("list/{page}/{itemPerPage}")]
-    public async Task<IActionResult> GetPage(int page, int itemPerPage, CancellationToken token)
+    public async Task<IActionResult> GetPage([FromRoute]int page, [FromRoute]int itemPerPage, CancellationToken token)
     {
         var parkingDtos = await _service.GetPaged(page, itemPerPage, token);
         var result = _mapper.Map<List<ParkingResultModel>>(parkingDtos);
@@ -35,14 +35,14 @@ public class ParkingController:ControllerBase
     }
 
     [HttpPost]
-    public async Task<int> AddAsync(ParkingModel model, CancellationToken token)
+    public async Task<int> AddAsync([FromBody]ParkingModel model, CancellationToken token)
     {
         var dto = _mapper.Map<ParkingModel, ParkingDTO>(model);
         return await _service.Create(dto, token);
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> EditAsync(int id, ParkingModel model, CancellationToken token)
+    public async Task<IActionResult> EditAsync([FromRoute]int id, [FromBody]ParkingModel model, CancellationToken token)
     {
         var dto = _mapper.Map<ParkingModel, ParkingDTO>(model); 
         await _service.Update(id, dto, token);

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Domain.Entities;
 using Services.Contracts;
 using WebApi.Models;
 
@@ -8,7 +9,8 @@ public class PersonMappingProfile : Profile
 {
     public PersonMappingProfile() 
     {
-        CreateMap<PersonDto, PersonModel>();
-        CreateMap<PersonModel, PersonDto>();
+        CreateMap<PersonDto, PersonModel>().ReverseMap();
+        CreateMap<PersonDto, Person>().ReverseMap();
+        CreateMap<PersonDto, PersonResultModel>().ReverseMap();
     }
 }
