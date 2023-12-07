@@ -20,17 +20,25 @@ public class ParkingController:ControllerBase
         _mapper = mapper;
     }
    
+    [HttpGet("list/{page}/{itemPerPage}")]
+    public async Task<IActionResult> GetPage(int page, int itemPerPage, CancellationToken token)
+    {
+        var parkingDtos = await _service.GetPaged(page, itemPerPage, token);
+        var result = _mapper.Map<List<ParkingResultModel>>(parkingDtos);
+        return Ok(result);
+    }
+    
     [HttpGet("{id}")]
     public async Task<IActionResult> GetAsync([FromRoute]int id)
     {
-        return Ok(_mapper.Map<ParkingModel>(await _service.GetByID(id)));
+        return Ok(_mapper.Map<ParkingResultModel>(await _service.GetByID(id)));
     }
 
     [HttpPost]
-    public async Task AddAsync(ParkingModel model, CancellationToken token)
+    public async Task<int> AddAsync(ParkingModel model, CancellationToken token)
     {
         var dto = _mapper.Map<ParkingModel, ParkingDTO>(model);
-        await _service.Create(dto, default);
+        return await _service.Create(dto, token);
     }
 
     [HttpPut("{id}")]
@@ -45,12 +53,6 @@ public class ParkingController:ControllerBase
     public async Task Delete(int id, CancellationToken token)
     {
         await _service.Delete(id, token);
-    }
-
-    [HttpGet("/list/{page}/{itemPerPage}")]
-    public async Task<IActionResult> GetPage(int page, int itemPerPage, CancellationToken token)
-    {
-        return Ok(await _service.GetPaged(page, itemPerPage, token));
     }
     
 }

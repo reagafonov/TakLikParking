@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Infrastructure.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Services.Repositories.Abstractions;
 
@@ -6,7 +7,7 @@ namespace Infrastructure.Repositories.Implementations
 {
     public class ParkingRepository:Repository<Parking, int>,IParkingRepository
     {
-        public ParkingRepository(DbContext context) : base(context)
+        public ParkingRepository(DatabaseContext context) : base(context)
         {
         }
 

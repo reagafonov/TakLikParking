@@ -1,11 +1,12 @@
 ﻿using Domain.Entities;
+using Infrastructure.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Services.Repositories.Abstractions;
 
 namespace Infrastructure.Repositories.Implementations;
 public class PersonRepository : Repository<Person, int>, IPersonRepository
 {
-    public PersonRepository(DbContext context) : base(context)
+    public PersonRepository(DatabaseContext context) : base(context)
     {
     }
 
