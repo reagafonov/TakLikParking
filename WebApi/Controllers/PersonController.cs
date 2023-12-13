@@ -22,13 +22,13 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(PersonModel personModel)
+        public async Task<IActionResult> Add([FromBody]PersonModel personModel)
         {
             return Ok(await _service.Create(_mapper.Map<PersonDto>(personModel)));
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Edit(int id, PersonModel personModel)
+        public async Task<IActionResult> Edit(int id, [FromBody]PersonModel personModel)
         {
             await _service.Update(id, _mapper.Map<PersonDto>(personModel));
             return Ok();
