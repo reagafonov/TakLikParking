@@ -1,11 +1,12 @@
 ﻿using Domain.Entities;
+using Infrastructure.EntityFramework;
 using Microsoft.EntityFrameworkCore;
 using Services.Repositories.Abstractions;
 
 namespace Infrastructure.Repositories.Implementations;
 public class RoleRepository : Repository<Role, int>, IRoleRepository
 {
-    public RoleRepository(DbContext context) : base(context)
+    public RoleRepository(DatabaseContext context) : base(context)
     {
     }
 
