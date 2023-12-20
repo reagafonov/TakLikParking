@@ -27,7 +27,8 @@ namespace WebApi
             serviceCollection
                 .AddTransient<IBookingService, BookingService>()
                 .AddTransient<IParkingService, ParkingService>()
-                .AddTransient<IPersonService, PersonService>();
+                .AddTransient<IPersonService, PersonService>()
+                .AddTransient<ICarService, CarService>();
             return serviceCollection;
         }
         
@@ -36,7 +37,8 @@ namespace WebApi
             serviceCollection
                 .AddTransient<IParkingRepository, ParkingRepository>()
                 .AddTransient<IBookingRepository, BookingRepository>()
-                .AddTransient<IPersonRepository, PersonRepository>();
+                .AddTransient<IPersonRepository, PersonRepository>()
+                .AddTransient<ICarRepository, CarRepository>();
             return serviceCollection;
         }
     }

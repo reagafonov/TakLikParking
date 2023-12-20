@@ -22,29 +22,38 @@ namespace Services.Implementations
       
         public async Task<CarDto> GetCarById(int id)
         {
-            var cars = await _carRepository.GetCars();
-            return _mapper.Map<CarDto>(cars.Select(c => c.Id == id));
+            var car = await _carRepository.GetAsync(id);
+            return _mapper.Map<Car, CarDto>(car);
         }
 
-        public async Task<int> CreateCar(CarDto carDto)
+        public async Task<int> CreateCar(CarDto carDto, CancellationToken token)
         {
-            var car = _mapper.Map<CarDto, Car>(carDto);
-            return await _carRepository.AddCar(car);
+            var car = _mapper.Map<Car>(carDto);
+            var result = _carRepository.Add(car);
+            await _carRepository.SaveChangesAsync(token);
+            return result.Id;
+
         }
-        public async Task<bool> DeleteCar(int id)
+        public async Task DeleteCar(int id, CancellationToken token)
         {
-            return await _carRepository.DeleteCar(id);
+            _carRepository.Delete(id);
+            await _carRepository.SaveChangesAsync(token);
         }
 
-        public async Task UpdateCar(int id, CarDto carDto)
+        public async Task UpdateCar(int id, CarDto carDto, CancellationToken token)
         {
             var car = _mapper.Map<CarDto, Car>(carDto);
             car.Id = id;
-            await _carRepository.UpdateCar(car);
+            _carRepository.Update(car);
+            await _carRepository.SaveChangesAsync(token);
         }
 
+        public async Task<ICollection<CarDto>> GetPaged(int page, int pageSize, CancellationToken token)
+        {
+            ICollection<Car> carCollection = await _carRepository.GetPagedAsync(page, pageSize, token);
 
-
+            return _mapper.Map<ICollection<Car>, ICollection<CarDto>>(carCollection);
+        }
 
     }
 }

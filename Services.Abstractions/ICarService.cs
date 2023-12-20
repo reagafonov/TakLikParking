@@ -1,21 +1,17 @@
 ﻿using Services.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Abstractions
 {
     public interface ICarService
     {
+        Task<ICollection<CarDto>> GetPaged(int page, int pageSize, CancellationToken token);
 
         Task<CarDto> GetCarById(int id);
 
-        Task<int> CreateCar(CarDto carDto);
+        Task<int> CreateCar(CarDto carDto, CancellationToken token);
 
-        Task UpdateCar(int id, CarDto carDto);
+        Task UpdateCar(int id, CarDto carDto, CancellationToken token);
 
-        Task<bool> DeleteCar(int id);
+        Task DeleteCar(int id, CancellationToken token);
     }
 }
