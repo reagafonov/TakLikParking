@@ -3,11 +3,13 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
 using WebApi.Models;
+using Asp.Versioning;
 
 namespace WebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class PersonController : ControllerBase
     {
         private IPersonService _service;

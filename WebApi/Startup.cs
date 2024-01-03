@@ -95,6 +95,7 @@ namespace WebApi
                 cfg.AddProfile<ParkingMappingProfile>();
                 cfg.AddProfile<PersonMappingProfile>();
                 cfg.AddProfile<CarMappingProfile>();
+                cfg.AddProfile<RoleMappingProfile>();
             });
             //configuration.AssertConfigurationIsValid();
             return configuration;

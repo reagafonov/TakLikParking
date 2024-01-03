@@ -29,6 +29,7 @@ namespace WebApi
                 .AddTransient<IParkingService, ParkingService>()
                 .AddTransient<IPersonService, PersonService>()
                 .AddTransient<ICarService, CarService>();
+                .AddTransient<IRoleService, RoleService>();
             return serviceCollection;
         }
         
@@ -39,6 +40,7 @@ namespace WebApi
                 .AddTransient<IBookingRepository, BookingRepository>()
                 .AddTransient<IPersonRepository, PersonRepository>()
                 .AddTransient<ICarRepository, CarRepository>();
+                .AddTransient<IRoleRepository, RoleRepository>();
             return serviceCollection;
         }
     }
