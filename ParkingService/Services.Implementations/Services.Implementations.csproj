@@ -20,4 +20,9 @@
       <ProjectReference Include="..\Services.Repositories.Abstractions\Services.Repositories.Abstractions.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="CarService.cs" />
+      <Compile Remove="PersonService.cs" />
+    </ItemGroup>
+
 </Project>
