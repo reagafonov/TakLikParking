@@ -8,6 +8,7 @@ namespace Services.Contracts
 {
     public class CarDto
     {
+        public int Id { get; set; }
         public string Model { get; set; }
         public string Color { get; set; }
         public string Number { get; set; }

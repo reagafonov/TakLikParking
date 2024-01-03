@@ -9,9 +9,6 @@ namespace Services.Repositories.Abstractions
 {
     public interface ICarRepository : IRepository<Car, int>
     {
-        Task<IEnumerable<Car>> GetCars();
-        Task<int> AddCar(Car car);
-        Task<bool> DeleteCar(int id);
-        Task UpdateCar(Car car);
+        Task<ICollection<Car>> GetPagedAsync(int page, int pageSize, CancellationToken token);
     }
 }
