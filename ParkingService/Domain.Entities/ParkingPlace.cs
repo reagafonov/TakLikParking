@@ -12,7 +12,4 @@ public class ParkingPlace : IEntity<int>
     
     public int ParkingId { get; set; }  
     public virtual Parking Parking { get; set; }  
-    
-    public virtual ICollection<Booking> Bookings { get; set; }  
-    
 }
