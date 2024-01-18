@@ -9,8 +9,8 @@ namespace Infrastructure.Repositories.Implementations
     {
         public ParkingRepository(DatabaseContext context) : base(context)
         {
+            
         }
-
 
         public async Task<ICollection<Parking>> GetPagedAsync(int page, int pageSize, CancellationToken token)
         {
