@@ -27,8 +27,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Implementations", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Exceptions", "Services.Exceptions\Services.Exceptions.csproj", "{6216FFAC-E129-4BF1-9431-5D95C4B6359E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Constants", "Services.Constants\Services.Constants.csproj", "{DBADAA9F-81D5-47AA-8EA6-7A48BBA1D40B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3764C978-18ED-433C-879E-04DCE66B30BD}"
 	ProjectSection(SolutionItems) = preProject
 		docker-compose.yml = docker-compose.yml
@@ -76,10 +74,6 @@ Global
 		{6216FFAC-E129-4BF1-9431-5D95C4B6359E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6216FFAC-E129-4BF1-9431-5D95C4B6359E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6216FFAC-E129-4BF1-9431-5D95C4B6359E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DBADAA9F-81D5-47AA-8EA6-7A48BBA1D40B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DBADAA9F-81D5-47AA-8EA6-7A48BBA1D40B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DBADAA9F-81D5-47AA-8EA6-7A48BBA1D40B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DBADAA9F-81D5-47AA-8EA6-7A48BBA1D40B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,6 +87,8 @@ Global
 		{4C9F03F8-682E-4608-8287-3F01DC8C1D5F} = {CE336D4A-8B7D-429E-85BF-951D71693CAE}
 		{E4957E88-2FB6-46E0-B542-8A9C5905CB3F} = {CE336D4A-8B7D-429E-85BF-951D71693CAE}
 		{6216FFAC-E129-4BF1-9431-5D95C4B6359E} = {CE336D4A-8B7D-429E-85BF-951D71693CAE}
-		{DBADAA9F-81D5-47AA-8EA6-7A48BBA1D40B} = {CE336D4A-8B7D-429E-85BF-951D71693CAE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {04D7D37A-5527-4FBA-98EB-240A2A85299E}
 	EndGlobalSection
 EndGlobal
