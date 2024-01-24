@@ -46,6 +46,8 @@ namespace WebApi
                 });
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
+
+            services.AddHttpClient<>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
