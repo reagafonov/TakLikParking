@@ -46,6 +46,7 @@ namespace WebApi
                 });
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,7 +75,8 @@ namespace WebApi
                     app.UseSwaggerUI();
                 }
             }
-            
+            app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200"));
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

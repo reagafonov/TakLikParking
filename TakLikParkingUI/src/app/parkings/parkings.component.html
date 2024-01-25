@@ -1,0 +1,24 @@
+<div class="container text-center">
+    <div class="row">
+        <div class="col-4 column-border">
+          <h4>Address</h4>
+        </div>
+        <div class="col-4 column-border">
+          <h4>Places available</h4>
+        </div>
+        <div class="col-4 column-border">
+          <h4>Book it now</h4>
+        </div>
+      </div>
+    <div class="row" *ngFor="let parking of parkings | async">
+      <div class="col-4 column-border d-flex align-items-center justify-content-center">
+        <p>{{parking.address}}</p>
+      </div>
+      <div class="col-4 column-border d-flex align-items-center justify-content-center">
+        <p></p>
+      </div>
+      <div class="col-4 column-border">
+        <button class="btn btn-success me-2" type="submit">Book</button>
+      </div>
+    </div>
+  </div>
