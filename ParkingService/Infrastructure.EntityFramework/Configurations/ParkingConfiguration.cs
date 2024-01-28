@@ -12,9 +12,5 @@ public class ParkingConfiguration : IEntityTypeConfiguration<Parking>
         
         builder.HasMany(e => e.ParkingPlaces)
             .WithOne(e => e.Parking);
-        
-        builder.HasMany(e => e.Roles)
-            .WithMany(e => e.Parkings)
-            .UsingEntity<ParkingToRole>();
     }
 }
