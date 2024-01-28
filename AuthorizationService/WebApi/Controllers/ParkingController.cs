@@ -26,7 +26,11 @@ public class ParkingController:ControllerBase
     [HttpGet("list/{page}/{itemPerPage}")]
     public async Task<IActionResult> GetPage([FromRoute]int page, [FromRoute]int itemPerPage, CancellationToken token)
     {
-        using var response = await _client.GetPage($"https://localhost:7094/api/Parking/list/{page}/{itemPerPage}");
+        var result = await _client.GetPage(page, itemPerPage, token);
+        if (result == null)
+            return NotFound();
+
+        return Ok(result);
         //var parkingDtos = await _service.GetPaged(page, itemPerPage, token);
         //var result = _mapper.Map<List<ParkingResultModel>>(parkingDtos);
         //return Ok(result);
@@ -35,7 +39,12 @@ public class ParkingController:ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetAsync([FromRoute]int id)
     {
-        return Ok(_mapper.Map<ParkingResultModel>(await _service.GetByID(id)));
+        var result = await _client.GetAsync(id);
+        if (result == null)
+            return NotFound();
+        
+        return Ok(result);
+        //return Ok(_mapper.Map<ParkingResultModel>(await _service.GetByID(id)));
     }
 
     [HttpPost]
@@ -58,7 +67,7 @@ public class ParkingController:ControllerBase
     [HttpDelete]
     public async Task Delete(int id, CancellationToken token)
     {
-        await _service.Delete(id, token);
+        await _client.Delete(id, token);
     }
     
 }

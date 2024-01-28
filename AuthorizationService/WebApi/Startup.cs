@@ -1,6 +1,8 @@
 using System.Text.Json.Serialization;
 using Asp.Versioning;
 using AutoMapper;
+using Services.Abstractions;
+using WebApi.Clients.ParkingService;
 using WebApi.Mapping;
 
 namespace WebApi
@@ -47,7 +49,7 @@ namespace WebApi
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
 
-            services.AddHttpClient<>();
+            services.AddHttpClient<IParkingServiceClient, ParkingServiceClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

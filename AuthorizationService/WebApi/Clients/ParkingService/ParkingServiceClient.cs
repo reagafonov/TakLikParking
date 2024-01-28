@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using Services.Contracts;
 using System.Net;
-using System.Net.Http;
 using WebApi.Models;
 
 namespace WebApi.Clients.ParkingService;
@@ -26,9 +24,9 @@ public class ParkingServiceClient : IParkingServiceClient
         return (int)responce.StatusCode;
     }
 
-    public Task Delete(int id, CancellationToken token)
+    public async Task Delete(int id, CancellationToken token)
     {
-        throw new NotImplementedException();
+        using var response = await _client.DeleteAsync($"https://localhost:1000/api/Parking/{id}", token);
     }
 
     public async Task<int> EditAsync(int id, ParkingModel model, CancellationToken token)
@@ -40,13 +38,29 @@ public class ParkingServiceClient : IParkingServiceClient
         return (int)response.StatusCode;
     }
 
-    public Task<IActionResult> GetAsync(int id)
+    public async Task<ParkingResultModel?> GetAsync(int id)
     {
-        throw new NotImplementedException();
+        using var response = await _client.GetAsync($"https://localhost:1000/api/Parking/{id}");
+        if (response.StatusCode == HttpStatusCode.OK)
+        {
+            return await response.Content.ReadFromJsonAsync<ParkingResultModel>();
+        }
+
+        //TO-DO прописать ошибку
+        Console.WriteLine("Элемент не найден");
+        return null;
     }
 
-    public Task<IActionResult> GetPage(int page, int itemPerPage, CancellationToken token)
+    public async Task<List<ParkingResultModel>?> GetPage(int page, int itemPerPage, CancellationToken token)
     {
-        throw new NotImplementedException();
+        using var response = await _client.GetAsync($"https://localhost:1000/api/Parking/list/{page}/{itemPerPage}", token);
+        if (response.StatusCode == HttpStatusCode.OK)
+        {
+            return await response.Content.ReadFromJsonAsync<List<ParkingResultModel>>();
+        }
+
+        //TO-DO прописать ошибку
+        Console.WriteLine("Элемент не найден");
+        return null;
     }
 }
