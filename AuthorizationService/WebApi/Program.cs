@@ -17,10 +17,9 @@ namespace WebApi
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureAppConfiguration(ic =>
+                        ic.AddJsonFile("ParkingServiceApi.json"));
                     webBuilder.UseStartup<Startup>();
-                    webBuilder.ConfigureAppConfiguration((hostingContext, config) =>
-                    {
-                    });
                 });
     }
 }

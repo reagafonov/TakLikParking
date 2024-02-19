@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{2BD1A60D-C68C-492B-A155-49B063EA3D18}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Parking.API", "WebApi\Parking.API.csproj", "{2BD1A60D-C68C-492B-A155-49B063EA3D18}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{65C7A410-A8BE-416D-86DF-F173EA7DE1E6}"
 EndProject
@@ -94,5 +94,8 @@ Global
 		{E4957E88-2FB6-46E0-B542-8A9C5905CB3F} = {CE336D4A-8B7D-429E-85BF-951D71693CAE}
 		{6216FFAC-E129-4BF1-9431-5D95C4B6359E} = {CE336D4A-8B7D-429E-85BF-951D71693CAE}
 		{DBADAA9F-81D5-47AA-8EA6-7A48BBA1D40B} = {CE336D4A-8B7D-429E-85BF-951D71693CAE}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {82DE7233-556B-496E-A3D0-6BA485C72FE5}
 	EndGlobalSection
 EndGlobal

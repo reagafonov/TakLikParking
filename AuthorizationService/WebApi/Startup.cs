@@ -1,9 +1,11 @@
 using System.Text.Json.Serialization;
 using Asp.Versioning;
 using AutoMapper;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
 using Services.Abstractions;
-using WebApi.Clients.ParkingService;
-using WebApi.Mapping;
+//using WebApi.Clients.ParkingService;
+//using WebApi.Mapping;
 
 namespace WebApi
 {
@@ -31,40 +33,37 @@ namespace WebApi
                 {
                     options.SuppressInferBindingSourcesForParameters = true;
                 })
-                .AddControllersAsServices();;
-            
+                .AddControllersAsServices(); ;
+
+            services.AddCors();
+
+            services.AddOcelot();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            services
-                .AddEndpointsApiExplorer()
-                .AddApiVersioning(options =>
-                {
-                    options.AssumeDefaultVersionWhenUnspecified = true;
-                    options.DefaultApiVersion = new ApiVersion(1, 0);
-                })
-                .AddApiExplorer(options =>
-                {
-                    options.GroupNameFormat = "'v'V";
-                    options.SubstituteApiVersionInUrl = true;
-                });
+            //services
+            //    .AddEndpointsApiExplorer()
+            //    .AddApiVersioning(options =>
+            //    {
+            //        options.AssumeDefaultVersionWhenUnspecified = true;
+            //        options.DefaultApiVersion = new ApiVersion(1, 0);
+            //    })
+            //    .AddApiExplorer(options =>
+            //    {
+            //        options.GroupNameFormat = "'v'V";
+            //        options.SubstituteApiVersionInUrl = true;
+            //    });
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
 
-            services.AddHttpClient<IParkingServiceClient, ParkingServiceClient>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
 
             if (!env.IsProduction())
             {
@@ -78,7 +77,15 @@ namespace WebApi
                     app.UseSwaggerUI();
                 }
             }
-            
+
+            app.UseHttpsRedirection();
+
+            await app.UseOcelot();
+
+            app.UseRouting();
+
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -87,22 +94,7 @@ namespace WebApi
         
         private static IServiceCollection InstallAutomapper(IServiceCollection services)
         {
-            services.AddSingleton<IMapper>(new Mapper(GetMapperConfiguration()));
             return services;
-        }
-        
-        private static MapperConfiguration GetMapperConfiguration()
-        {
-            var configuration = new MapperConfiguration(cfg =>
-            {
-                cfg.AddProfile<BookingMappingProfile>();
-                cfg.AddProfile<ParkingMappingProfile>();
-                cfg.AddProfile<PersonMappingProfile>();
-                cfg.AddProfile<CarMappingProfile>();
-                cfg.AddProfile<RoleMappingProfile>();
-            });
-            //configuration.AssertConfigurationIsValid();
-            return configuration;
         }
     }
     
