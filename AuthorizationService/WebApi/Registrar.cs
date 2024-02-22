@@ -1,9 +1,4 @@
-﻿using Infrastructure.EntityFramework;
-//using Infrastructure.Repositories.Implementations;
-//using Services.Abstractions;
-//using Services.Repositories.Abstractions;
-//using Services.Implementations;
-using WebApi.Settings;
+﻿using WebApi.Settings;
 
 namespace WebApi
 {
@@ -17,32 +12,7 @@ namespace WebApi
             var applicationSettings = configuration.Get<ApplicationSettings>()!;
             services.AddSingleton(applicationSettings);
             return services.AddSingleton((IConfigurationRoot)configuration);
-            //    //.InstallServices()
-            //    .ConfigureContext(applicationSettings.ConnectionString);
-                //.InstallRepositories();
 
         }
-        
-        //private static IServiceCollection InstallServices(this IServiceCollection serviceCollection)
-        //{
-        //    serviceCollection
-        //        .AddTransient<IBookingService, BookingService>()
-        //        .AddTransient<IParkingService, ParkingService>()
-        //        .AddTransient<IPersonService, PersonService>()
-        //        .AddTransient<ICarService, CarService>();
-        //        .AddTransient<IRoleService, RoleService>();
-        //    return serviceCollection;
-        //}
-        
-        //private static IServiceCollection InstallRepositories(this IServiceCollection serviceCollection)
-        //{
-        //    serviceCollection
-        //        .AddTransient<IParkingRepository, ParkingRepository>()
-        //        .AddTransient<IBookingRepository, BookingRepository>()
-        //        .AddTransient<IPersonRepository, PersonRepository>()
-        //        .AddTransient<ICarRepository, CarRepository>();
-        //        .AddTransient<IRoleRepository, RoleRepository>();
-        //    return serviceCollection;
-        //}
     }
 }

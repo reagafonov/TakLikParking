@@ -1,11 +1,7 @@
 using System.Text.Json.Serialization;
 using Asp.Versioning;
-using AutoMapper;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
-using Services.Abstractions;
-//using WebApi.Clients.ParkingService;
-//using WebApi.Mapping;
 
 namespace WebApi
 {
@@ -39,20 +35,20 @@ namespace WebApi
 
             services.AddOcelot();
 
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            //services
-            //    .AddEndpointsApiExplorer()
-            //    .AddApiVersioning(options =>
-            //    {
-            //        options.AssumeDefaultVersionWhenUnspecified = true;
-            //        options.DefaultApiVersion = new ApiVersion(1, 0);
-            //    })
-            //    .AddApiExplorer(options =>
-            //    {
-            //        options.GroupNameFormat = "'v'V";
-            //        options.SubstituteApiVersionInUrl = true;
-            //    });
-            // Register the Swagger generator, defining 1 or more Swagger documents
+            //Learn more about configuring Swagger / OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            services
+                .AddEndpointsApiExplorer()
+                .AddApiVersioning(options =>
+                {
+                    options.AssumeDefaultVersionWhenUnspecified = true;
+                    options.DefaultApiVersion = new ApiVersion(1, 0);
+                })
+                .AddApiExplorer(options =>
+                {
+                    options.GroupNameFormat = "'v'V";
+                    options.SubstituteApiVersionInUrl = true;
+                });
+            //Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
 
         }
