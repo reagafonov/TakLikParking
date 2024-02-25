@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.EntityFramework
@@ -13,6 +14,11 @@ namespace Infrastructure.EntityFramework
                     .UseLazyLoadingProxies() // lazy loading
                     .UseNpgsql(connectionString)
                 );
+            
+            services.AddDefaultIdentity<ApplicationUser>(options=>
+                    options.SignIn.RequireConfirmedAccount=true)
+                .AddEntityFrameworkStores<DbContext>();
+            
             return services;
         }
     }

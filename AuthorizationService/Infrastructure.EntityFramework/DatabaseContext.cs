@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.EntityFramework
@@ -6,7 +7,7 @@ namespace Infrastructure.EntityFramework
     /// <summary>
     /// Контекст
     /// </summary>
-    public class DatabaseContext : DbContext
+    public class DatabaseContext : IdentityDbContext<ApplicationUser>
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {

@@ -1,5 +1,7 @@
 using System.Text.Json.Serialization;
 using Asp.Versioning;
+using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
@@ -30,6 +32,7 @@ namespace WebApi
                     options.SuppressInferBindingSourcesForParameters = true;
                 })
                 .AddControllersAsServices(); ;
+           
 
             services.AddCors();
 
@@ -80,6 +83,8 @@ namespace WebApi
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
