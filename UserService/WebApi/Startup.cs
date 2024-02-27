@@ -1,10 +1,13 @@
 using System.Security.Claims;
+using System.Text;
 using System.Text.Json.Serialization;
 using Asp.Versioning;
 using AutoMapper;
 using Domain.Entities;
 using Infrastructure.EntityFramework;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
 using WebApi.Mapping;
 using WebApi.Models;
 
@@ -47,6 +50,28 @@ namespace WebApi
                 {
                     options.GroupNameFormat = "'v'V";
                     options.SubstituteApiVersionInUrl = true;
+                });
+            var jvtSettings = Configuration.GetSection("jwtOptions");
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata =
+#if DEGIG
+                        false
+#else
+                        true
+#endif
+                        ;
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = jvtSettings["Issuer"],
+                        ValidAudience = jvtSettings["Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jvtSettings["securityKey"]))
+                    };
                 });
             services.AddAuthorization(options =>
             {

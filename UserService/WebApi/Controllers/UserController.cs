@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using Asp.Versioning;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
@@ -63,7 +64,11 @@ public class UserController:ControllerBase
             var loggedIn = findByIdAsync.Password == loginData.Password;
             if (!loggedIn)
             {
-                return Forbid("Неправильный пароль");
+                return new JsonResult(new JwtResponse()
+                {
+                    IsAuthorized = false,
+                    Reason = "Неправильный пароль"
+                });
             }
 
             claimsAsync = Enum.GetValues<RolesEnum>().Where(x=>findByIdAsync.Roles.HasFlag(x)).Select(x=>x.GetRoleName())
@@ -122,7 +127,7 @@ public class UserController:ControllerBase
     public virtual async Task<IActionResult> EditAsync([FromBody]ResetPasswordRequest request, CancellationToken token)
     {
         if (!User.IsInRole(RolesEnum.SuperAdmin) && User.Identity.Name != request.Login) 
-            return Forbid();
+            return Unauthorized(JwtBearerDefaults.AuthenticationScheme);
         var user = await _loginStore.GetByID(request.Login, token);
         if (user is null)
             return NotFound("User");
@@ -138,7 +143,7 @@ public class UserController:ControllerBase
     public async Task<IActionResult> DeleteAsync([FromBody]string login, [FromBody]string password, CancellationToken token)
     {
         if ((!(User.Identity?.IsAuthenticated ?? false)) ||
-            (User.FindFirst("super_admin") is null && User.Identity.Name != login)) return Forbid();
+            (User.FindFirst("super_admin") is null && User.Identity.Name != login)) return Unauthorized();
         var user = await _loginStore.GetByID(login,token);
         if (user is null)
             return NotFound("user");
