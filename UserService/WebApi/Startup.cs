@@ -1,7 +1,10 @@
+using System.Security.Claims;
 using System.Text.Json.Serialization;
 using Asp.Versioning;
 using AutoMapper;
+using Infrastructure.EntityFramework;
 using WebApi.Mapping;
+using WebApi.Models;
 
 namespace WebApi
 {
@@ -30,7 +33,6 @@ namespace WebApi
                     options.SuppressInferBindingSourcesForParameters = true;
                 })
                 .AddControllersAsServices();;
-            
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services
                 .AddEndpointsApiExplorer()
@@ -44,6 +46,13 @@ namespace WebApi
                     options.GroupNameFormat = "'v'V";
                     options.SubstituteApiVersionInUrl = true;
                 });
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("IsSuperAdmin", policy =>
+                    policy.RequireAssertion(handler =>
+                        handler.User.Identity.IsAuthenticated && handler.User.HasClaim(x =>
+                            x.Type == ClaimTypes.Role && x.Value == nameof(RolesEnum.SuperAdmin))));
+            });
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
         }
@@ -60,6 +69,7 @@ namespace WebApi
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             if (!env.IsProduction())
@@ -92,7 +102,7 @@ namespace WebApi
             var configuration = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<PersonMappingProfile>();
-                cfg.AddProfile<RoleMappingProfile>();
+                cfg.AddProfile<UserMappingProfile>();
             });
             //configuration.AssertConfigurationIsValid();
             return configuration;

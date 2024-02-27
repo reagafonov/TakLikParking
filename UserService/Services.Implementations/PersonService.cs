@@ -2,6 +2,7 @@ using AutoMapper;
 using Domain.Entities;
 using Services.Abstractions;
 using Services.Contracts;
+using Services.Contracts.Filters;
 using Services.Repositories.Abstractions;
 
 namespace Services.Implementations;
@@ -31,7 +32,7 @@ public class PersonService : IPersonService
     {
         var person = await _personRepository.GetAsync(id, token);
         var res = _personRepository.Delete(person, token);
-        await _personRepository.SaveChangesAsync();
+        await _personRepository.SaveChangesAsync(token);
         return res;
     }
 
@@ -41,9 +42,10 @@ public class PersonService : IPersonService
         return _mapper.Map<PersonDto>(person);
     }
 
-    public async Task<ICollection<PersonDto>> GetPaged(int page, int pageSize)
+    public async Task<ICollection<PersonDto>> GetPaged(PersonFilter filter,int page, int pageSize)
     {
-        var entities = await _personRepository.GetAllAsync(CancellationToken.None);
+        var repoFilter = _mapper.Map<RepositoryPersonFilter>(filter);
+        var entities = await _personRepository.GetPagedAsync(repoFilter, page, pageSize);
         return _mapper.Map<ICollection<Person>, ICollection<PersonDto>>(entities);
     }
 

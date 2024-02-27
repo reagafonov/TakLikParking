@@ -16,12 +16,16 @@ public class PersonRepository : Repository<Person, int>, IPersonRepository
     /// <param name="page">номер страницы</param>
     /// <param name="itemsPerPage">объем страницы</param>
     /// <returns> Список курсов</returns>
-    public async Task<List<Person>> GetPagedAsync(int page, int itemsPerPage)
+    public async Task<List<Person>> GetPagedAsync(RepositoryPersonFilter filter, int page, int itemsPerPage)
     {
         var query = GetAll();
+        if (!string.IsNullOrWhiteSpace(filter.Owner))
+            query = query.Where(x => x.Creator == filter.Owner);
         return await query
             .Skip((page - 1) * itemsPerPage)
             .Take(itemsPerPage)
             .ToListAsync();
     }
+    
+    
 }

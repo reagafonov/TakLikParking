@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Domain.Entities;
 
 namespace WebApi.Models;
@@ -9,7 +10,6 @@ public class PersonModel
     public string MiddleName { get; set; } = string.Empty;
     public string Phone { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
-    public int RoleId { get; set; } = 0;
 
     //TODO: переделать на RoleModel 
     // public virtual Role? Role { get; set; }

@@ -1,4 +1,5 @@
 using Services.Contracts;
+using Services.Contracts.Filters;
 
 namespace Services.Abstractions;
 public interface IPersonService
@@ -9,7 +10,7 @@ public interface IPersonService
     /// <param name="page">номер страницы</param>
     /// <param name="pageSize">объем страницы</param>
     /// <returns></returns>
-    Task<ICollection<PersonDto>> GetPaged(int page, int pageSize);
+    Task<ICollection<PersonDto>> GetPaged(PersonFilter filter, int page, int pageSize);
 
     /// <summary>
     /// Получить

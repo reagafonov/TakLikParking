@@ -1,4 +1,4 @@
-namespace Services.Contracts;
+using Domain.Entities;
 
 public class PersonDto
 {
@@ -8,5 +8,7 @@ public class PersonDto
     public string MiddleName { get; set; } = string.Empty;
     public string Phone { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
-    public int RoleId { get; set; }
+    //public int RoleId { get; set; }
+    
+    public string Owner { get; set; }
 }

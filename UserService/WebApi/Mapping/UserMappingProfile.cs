@@ -10,8 +10,9 @@ public class UserMappingProfile:Profile
 {
     public UserMappingProfile()
     {
-        CreateMap<User,UserDTO>().ReverseMap();
+        CreateMap<UserInfo,User>().ReverseMap();
+        CreateMap<User, User>();
         CreateMap<UserDTO, UserResultModel>().ReverseMap();
-        CreateMap<UserModel, UserDTO>().ReverseMap();
+        CreateMap<UserInfo, UserDTO>().ReverseMap();
     }
 }

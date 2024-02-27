@@ -1,7 +1,10 @@
+using System.Text;
 using System.Text.Json.Serialization;
 using Asp.Versioning;
 using Domain.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
@@ -50,6 +53,32 @@ namespace WebApi
                 {
                     options.GroupNameFormat = "'v'V";
                     options.SubstituteApiVersionInUrl = true;
+                });
+            var jvtSettings = Configuration.GetSection("jwtSettings");
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata =
+#if DEGIG
+                        false
+#else
+                        true
+#endif
+                        ;
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = jvtSettings["Issuer"],
+                        ValidAudience = jvtSettings["Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jvtSettings["securityKey"]))
+                    };
                 });
             //Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();

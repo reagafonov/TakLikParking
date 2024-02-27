@@ -1,6 +1,7 @@
 using AutoMapper;
 using Domain.Entities;
-using Services.Contracts;
+using Services.Contracts.Filters;
+using Services.Repositories.Abstractions;
 using WebApi.Models;
 
 namespace WebApi.Mapping;
@@ -12,5 +13,7 @@ public class PersonMappingProfile : Profile
         CreateMap<PersonDto, PersonModel>().ReverseMap();
         CreateMap<PersonDto, Person>().ReverseMap();
         CreateMap<PersonDto, PersonResultModel>().ReverseMap();
+        CreateMap<PersonFilter, RepositoryPersonFilter>();
+        
     }
 }
