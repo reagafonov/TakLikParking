@@ -6,7 +6,7 @@ using Services.Repositories.Abstractions;
 
 namespace Services.Implementations;
 
-public class CommonCrudService<TDto,TEntity,TKey> : ICommonCrudService<TDto,TKey> where TDto:class where TEntity:class, IEntity<TKey> where TKey:struct
+public class CommonCrudService<TDto,TEntity,TKey> : ICommonCrudService<TDto,TKey> where TDto:class where TEntity:class, IEntity<TKey>
 {
     private readonly ILogger _logger;
     private readonly ICommonRepository<TEntity,TKey> _repository;

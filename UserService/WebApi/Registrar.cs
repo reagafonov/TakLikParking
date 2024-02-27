@@ -28,9 +28,9 @@ namespace WebApi
         private static IServiceCollection InstallServices(this IServiceCollection serviceCollection)
         {
             serviceCollection
-                .AddTransient<IPersonService, PersonService>();
+                .AddTransient<IPersonService, PersonService>()
                 //.AddTransient<ICommonCrudService<RoleDto, int>, CommonCrudService<RoleDto, Role, int>>();
-                //.AddTransient<ICommonCrudService<UserDTO,int>, CommonCrudService<UserDTO,User,int>>();
+                .AddTransient<ICommonCrudService<UserDTO,string>, CommonCrudService<UserDTO,User,string>>();
             return serviceCollection;
         }
         

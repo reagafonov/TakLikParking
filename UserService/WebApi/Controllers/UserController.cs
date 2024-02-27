@@ -3,12 +3,12 @@ using System.Security.Claims;
 using System.Text;
 using Asp.Versioning;
 using AutoMapper;
-using Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using Services.Abstractions;
+using Services.Contracts;
 using WebApi.Models;
 using  WebApi.Extensions;
 
@@ -22,56 +22,51 @@ namespace WebApi.Controllers;
 public class UserController:ControllerBase
 {
     private readonly IMapper _mapper;
-    private readonly UserManager<User> _userManager;
-    private readonly IUserLoginStore<User> _loginStore;
+    private readonly ICommonCrudService<UserDTO,string> _loginStore;
     private readonly string _issuer;
     private readonly string _audience;
     private readonly string _key;
     
     public UserController(IMapper mapper,
-        UserManager<User> userManager,
-        IUserLoginStore<User> loginStore,
-        IConfiguration configuration,
-        SignInManager<User> signInManager)
+        IConfiguration configuration)
     {
         _mapper = mapper;
-        _userManager = userManager;
-        _loginStore = loginStore;
         var jwtSettings = configuration.GetSection("jwtOptions");
         _issuer = jwtSettings["Issuer"];
         _audience = jwtSettings["audience"];
-        _key = jwtSettings["key"];
+        _key = jwtSettings["SecurityKey"];
     }
 
-    [HttpPost]
+    [HttpPost("login")]
     [AllowAnonymous]
-    public virtual async Task<IActionResult> Login(string username, string password, CancellationToken token)
+    public virtual async Task<IActionResult> Login([FromBody]UserLogin loginData, CancellationToken token)
     {
         await Task.Delay(2000, token);
         IList<Claim> claimsAsync;
 
-        if (username == "Admin" && password == "super")
+        if (loginData.Login == "Admin" && loginData.Password == "super")
         {
             claimsAsync = new List<Claim>()
             {
-                new Claim(ClaimTypes.Role, RolesEnum.SuperAdmin.GetRoleName())
+                new(ClaimTypes.Role, RolesEnum.SuperAdmin.GetRoleName())
             };
         }
         else
         {
-            var findByIdAsync = await _loginStore.FindByIdAsync(username, token);
+            var findByIdAsync = await _loginStore.GetByID(loginData.Login, token);
             if (findByIdAsync is null)
             {
                 return Forbid("Пользователь не найден");
             }
 
-            var loggedIn = await _userManager.CheckPasswordAsync(findByIdAsync, password);
+            var loggedIn = findByIdAsync.Password == loginData.Password;
             if (!loggedIn)
             {
                 return Forbid("Неправильный пароль");
             }
 
-            claimsAsync = await _userManager.GetClaimsAsync(findByIdAsync);
+            claimsAsync = Enum.GetValues<RolesEnum>().Where(x=>findByIdAsync.Roles.HasFlag(x)).Select(x=>x.GetRoleName())
+                .Select(x=>new Claim(ClaimTypes.Role,x)).ToList();
         }
         var jwt = new JwtSecurityToken(
             issuer: _issuer,
@@ -99,7 +94,7 @@ public class UserController:ControllerBase
     {
         await Task.Delay(2000, token);
 
-        var existedUser = await _userManager.FindByIdAsync(userModel.UserName);
+        var existedUser = await _loginStore.GetByID(userModel.UserName,token);
         if (existedUser is not null)
         {
             return BadRequest("Пользователь уже существует");
@@ -111,11 +106,15 @@ public class UserController:ControllerBase
             return BadRequest("Нет доступа");
 
         
-        var user = _mapper.Map<User>(userModel);
-        await _userManager.CreateAsync(user, userModel.Password);
-        var claims = roles.Select(x=>  x.GetRoleName())
-            .Select(x=>new Claim(ClaimTypes.Role,x));
-        await _userManager.AddClaimsAsync(user, claims);
+        var user = _mapper.Map<UserDTO>(userModel);
+        var role = roles.FirstOrDefault();
+        foreach (var rolesEnum in roles.Skip(1))
+        {
+            role |= rolesEnum;
+        }
+
+        user.Roles = role;
+        await _loginStore.Create(user,token);
         return Ok();
     }
     
@@ -124,13 +123,14 @@ public class UserController:ControllerBase
     {
         if (!User.IsInRole(RolesEnum.SuperAdmin) && User.Identity.Name != request.Login) 
             return Forbid();
-        var user = await _userManager.FindByIdAsync(request.Login);
+        var user = await _loginStore.GetByID(request.Login, token);
         if (user is null)
             return NotFound("User");
         token.ThrowIfCancellationRequested();
-        var result = await _userManager.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
-        if (!result.Succeeded)
-            return Forbid(JsonConvert.SerializeObject(result.Errors));
+        
+        user.Password = request.NewPassword;
+        await _loginStore.Update(user.ID, user, token);
+       
         return Ok();
     }
 
@@ -139,12 +139,10 @@ public class UserController:ControllerBase
     {
         if ((!(User.Identity?.IsAuthenticated ?? false)) ||
             (User.FindFirst("super_admin") is null && User.Identity.Name != login)) return Forbid();
-        var user = await _userManager.FindByIdAsync(login);
+        var user = await _loginStore.GetByID(login,token);
         if (user is null)
             return NotFound("user");
-        var result = await _userManager.DeleteAsync(user);
-        if (!result.Succeeded)
-            return Forbid(JsonConvert.SerializeObject(result.Errors));
+        await _loginStore.DeleteAsync(user.ID,token);
         return Ok();
 
     }

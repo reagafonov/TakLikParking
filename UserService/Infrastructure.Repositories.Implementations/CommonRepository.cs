@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Services.Repositories.Abstractions;
 
 namespace Infrastructure.Repositories.Implementations;
-public class CommonRepository<TEntity,TKey> : Repository<TEntity, TKey>, ICommonRepository<TEntity,TKey> where TEntity:class,IEntity<TKey> where TKey:struct
+public class CommonRepository<TEntity,TKey> : Repository<TEntity, TKey>, ICommonRepository<TEntity,TKey> where TEntity:class,IEntity<TKey> 
 {
     public CommonRepository(DatabaseContext context) : base(context)
     {

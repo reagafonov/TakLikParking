@@ -2,7 +2,7 @@ using Services.Contracts;
 
 namespace Services.Abstractions;
 
-public interface ICommonCrudService<TDto,TKey> where TDto:class where TKey:struct
+public interface ICommonCrudService<TDto,TKey> where TDto:class 
 {
     /// <summary>
     /// Создать

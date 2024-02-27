@@ -2,7 +2,9 @@ using System.Security.Claims;
 using System.Text.Json.Serialization;
 using Asp.Versioning;
 using AutoMapper;
+using Domain.Entities;
 using Infrastructure.EntityFramework;
+using Microsoft.AspNetCore.Identity;
 using WebApi.Mapping;
 using WebApi.Models;
 

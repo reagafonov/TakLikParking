@@ -1,5 +1,6 @@
 namespace WebApi.Models;
 
+[Flags]
 public enum RolesEnum
 {
     Client = 0,

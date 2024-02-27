@@ -14,9 +14,6 @@ namespace Infrastructure.EntityFramework
                     .UseLazyLoadingProxies() // lazy loading
                     .UseNpgsql(connectionString)
                 );
-            services.AddIdentityCore<User>(options=>
-                    options.SignIn.RequireConfirmedAccount=true)
-                .AddEntityFrameworkStores<DatabaseContext>();
             return services;
         }
     }

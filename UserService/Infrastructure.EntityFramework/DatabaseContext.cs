@@ -7,7 +7,7 @@ namespace Infrastructure.EntityFramework
     /// <summary>
     /// Контекст
     /// </summary>
-    public class DatabaseContext : IdentityDbContext<User>
+    public class DatabaseContext :DbContext
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
