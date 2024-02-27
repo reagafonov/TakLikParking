@@ -28,9 +28,10 @@ public class UserController:ControllerBase
     private readonly string _key;
     
     public UserController(IMapper mapper,
-        IConfiguration configuration)
+        IConfiguration configuration, ICommonCrudService<UserDTO, string> loginStore)
     {
         _mapper = mapper;
+        _loginStore = loginStore;
         var jwtSettings = configuration.GetSection("jwtOptions");
         _issuer = jwtSettings["Issuer"];
         _audience = jwtSettings["audience"];
@@ -87,9 +88,8 @@ public class UserController:ControllerBase
     }
 
     
-    [HttpPost]
+    [HttpPost("register")]
     [AllowAnonymous]
-    [ValidateAntiForgeryToken]
     public virtual async Task<IActionResult> Register([FromBody] UserInfo userModel, CancellationToken token)
     {
         await Task.Delay(2000, token);
@@ -118,7 +118,7 @@ public class UserController:ControllerBase
         return Ok();
     }
     
-    [HttpPut]
+    [HttpPut("change-password")]
     public virtual async Task<IActionResult> EditAsync([FromBody]ResetPasswordRequest request, CancellationToken token)
     {
         if (!User.IsInRole(RolesEnum.SuperAdmin) && User.Identity.Name != request.Login) 

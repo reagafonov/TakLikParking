@@ -4,7 +4,7 @@ using System.Security.Principal;
 
 namespace WebApi.Models;
 
-public class UserInfo:PersonModel
+public class UserInfo//:PersonModel
 {
     public string UserName { get; set; }
     

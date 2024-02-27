@@ -9,6 +9,6 @@ public class User:IEntity<string>
     
     public string Password { get; set; }
     
-    public int Roles { get; set; }
+    public RolesEnum Roles { get; set; }
     public string Id { get; set; }
 }
